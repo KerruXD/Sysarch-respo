@@ -3,7 +3,7 @@
 include 'config.php';
 
 if(isset($_POST['submit'])){
-
+   $studid = mysqli_real_escape_string($conn, $_POST['studid']);
    $name = mysqli_real_escape_string($conn, $_POST['name']);
    $email = mysqli_real_escape_string($conn, $_POST['email']);
    $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
@@ -23,7 +23,7 @@ if(isset($_POST['submit'])){
       }elseif($image_size > 2000000){
          $message[] = 'image size is too large!';
       }else{
-         $insert = mysqli_query($conn, "INSERT INTO `user_form`(name, email, password, image) VALUES('$name', '$email', '$pass', '$image')") or die('query failed');
+         $insert = mysqli_query($conn, "INSERT INTO `user_form`(studid, name, email, password, image) VALUES('$studid','$name', '$email', '$pass', '$image')") or die('query failed');
 
          if($insert){
             move_uploaded_file($image_tmp_name, $image_folder);
@@ -90,6 +90,7 @@ if(isset($_POST['submit'])){
          }
       }
       ?>
+	  <input type="studid" name="studid" placeholder="Student ID:" class="box" required>
       <input type="text" name="name" placeholder="Enter Username" class="box" required>
       <input type="email" name="email" placeholder="Enter Email" class="box" required>
       <input type="password" name="password" placeholder="Enter Password" class="box" required>

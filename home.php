@@ -1,6 +1,7 @@
 <?php
 
 include 'config.php';
+
 session_start();
 $user_id = $_SESSION['user_id'];
 
@@ -23,15 +24,14 @@ if(isset($_GET['logout'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>home</title>
+   <title>Home</title>
 
-    <!-- custom css file link  -->
+    <!-- Custom CSS file link  -->
     <link rel="stylesheet" href="css/style.css">
  <style>
         
         .btn {
             background-color: var(--blue);
-			
             color: white;
             text-decoration: none;
             padding: 10px 15px;
@@ -39,27 +39,20 @@ if(isset($_GET['logout'])){
             margin-right: 10px;
         }
 		.btn:hover{
-   background-color: var(--red);
-}
+            background-color: var(--red);
+        }
     </style>
 
-
-
-    
 </head>
 
-
 <body>
-	
-   
+
 <div class="container" style="background-color: white;">
-
-
   <div class="profile">
     <a href="" class="btn">Student Page</a>
     <br>
     <?php
-        $select = mysqli_query($conn, "SELECT * FROM user_form WHERE id = '$user_id'") or die('query failed');
+        $select = mysqli_query($conn, "SELECT * FROM user_form WHERE id = '$user_id'") or  die('Query failed');
         if(mysqli_num_rows($select) > 0){
             $fetch = mysqli_fetch_assoc($select);
         }
@@ -69,16 +62,14 @@ if(isset($_GET['logout'])){
             echo '<img src="uploaded_img/'.$fetch['image'].'">';
         }
     ?>
-    
-    <p>Student ID: <?php echo $fetch['id']; ?></p>
+    <p>Student ID: <?php echo $fetch['studid']; ?></p>
     <h3>Welcome, <?php echo $fetch['name']; ?>!</h3>
     <a href="update_profile.php" class="btn"><i class="fa-solid fa-pen-to-square"></i>&nbsp; Edit profile</a>
     <a href="" class="btn"><i class="fas fa-street-view"></i>&nbsp; Sit-In</a>
-    <a href="" class="btn"><i class="fa-solid fa-eye"></i>&nbsp; View Remaining Sessions</a>
+    <a href="" class="btn">&nbsp; View Remaining Sessions: <?php echo $fetch['remaining_sessions']; ?></a>
     <a href="" class="btn"><i class="fa-solid fa-book"></i>&nbsp; Mark Reservation</a>
     <a href="home.php?logout=<?php echo $user_id; ?>" class="delete-btn">Logout &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
-</div>
-
+  </div>
 </div>
 
 </body>

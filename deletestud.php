@@ -63,7 +63,7 @@
     <table>
         <tr>
 			<th>Student ID</th>
-            <th>Username</th>
+            <th>Name</th>
             <th>Email</th>
             <th>Action</th>
         </tr>
@@ -73,17 +73,17 @@
         $conn = mysqli_connect('localhost', 'root', '', 'user_db') or die('Connection failed');
 
         // Fetch existing user data from the database
-        $select_query = "SELECT id, name, email FROM user_form";
+        $select_query = "SELECT studid, name, email FROM user_form";
         $result = mysqli_query($conn, $select_query) or die('Query failed');
 
         // Check if there are any users
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-				 echo '<td>' . $row['id'] . '</td>';
+				 echo '<td>' . $row['studid'] . '</td>';
                 echo '<td>' . $row['name'] . '</td>';
                 echo '<td>' . $row['email'] . '</td>';
-                echo '<td><a href="delete.php?id=' . $row['id'] . '" class="delete-btn" onclick="return confirmDelete()">Delete</a></td>';
+                echo '<td><a href="delete.php?studid=' . $row['studid'] . '" class="delete-btn" onclick="return confirmDelete()">Delete</a></td>';
                 echo '</tr>';
             }
         } else {
